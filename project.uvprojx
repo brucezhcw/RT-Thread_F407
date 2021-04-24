@@ -339,7 +339,7 @@
               <MiscControls></MiscControls>
               <Define>USE_HAL_DRIVER, STM32F407xx, __RTTHREAD__</Define>
               <Undefine></Undefine>
-              <IncludePath>applications;.;rt-thread\libcpu\arm\common;rt-thread\libcpu\arm\cortex-m4;rt-thread\components\drivers\include;rt-thread\components\drivers\include;rt-thread\components\drivers\include;board;board\CubeMX_Config\Inc;board\ports;libraries\HAL_Drivers;libraries\HAL_Drivers\config;rt-thread\components\finsh;.;rt-thread\include;libraries\STM32F4xx_HAL\STM32F4xx_HAL_Driver\Inc;libraries\STM32F4xx_HAL\CMSIS\Device\ST\STM32F4xx\Include;libraries\STM32F4xx_HAL\CMSIS\Include</IncludePath>
+              <IncludePath>.\applications;.;.\rt-thread\libcpu\arm\common;.\rt-thread\libcpu\arm\cortex-m4;.\rt-thread\components\drivers\include;.\board;.\board\CubeMX_Config\Inc;.\board\ports;.\libraries\HAL_Drivers;.\libraries\HAL_Drivers\config;.\rt-thread\components\finsh;.\rt-thread\include;.\libraries\STM32F4xx_HAL\STM32F4xx_HAL_Driver\Inc;.\libraries\STM32F4xx_HAL\CMSIS\Device\ST\STM32F4xx\Include;.\libraries\STM32F4xx_HAL\CMSIS\Include;.\rt-thread\components\libc\compilers\common</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -503,6 +503,16 @@
               <FileType>1</FileType>
               <FilePath>libraries\HAL_Drivers\drv_common.c</FilePath>
             </File>
+            <File>
+              <FileName>drv_rtc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\libraries\HAL_Drivers\drv_rtc.c</FilePath>
+            </File>
+            <File>
+              <FileName>drv_flash_f4.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\libraries\HAL_Drivers\drv_flash\drv_flash_f4.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -579,24 +589,19 @@
               <FilePath>rt-thread\src\idle.c</FilePath>
             </File>
             <File>
-              <FileName>mempool.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>rt-thread\src\mempool.c</FilePath>
-            </File>
-            <File>
               <FileName>device.c</FileName>
               <FileType>1</FileType>
               <FilePath>rt-thread\src\device.c</FilePath>
             </File>
             <File>
-              <FileName>mem.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>rt-thread\src\mem.c</FilePath>
-            </File>
-            <File>
               <FileName>memheap.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\rt-thread\src\memheap.c</FilePath>
+            </File>
+            <File>
+              <FileName>time.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\rt-thread\components\libc\compilers\common\time.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -702,6 +707,26 @@
               <FileName>stm32f4xx_ll_fmc.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\libraries\STM32F4xx_HAL\STM32F4xx_HAL_Driver\Src\stm32f4xx_ll_fmc.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f4xx_hal_flash.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\libraries\STM32F4xx_HAL\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_flash.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f4xx_hal_flash_ex.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\libraries\STM32F4xx_HAL\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_flash_ex.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f4xx_hal_rtc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\libraries\STM32F4xx_HAL\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_rtc.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f4xx_hal_rtc_ex.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\libraries\STM32F4xx_HAL\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_rtc_ex.c</FilePath>
             </File>
           </Files>
         </Group>
