@@ -518,6 +518,11 @@
               <FileType>1</FileType>
               <FilePath>.\libraries\HAL_Drivers\drv_flash\drv_flash_f4.c</FilePath>
             </File>
+            <File>
+              <FileName>drv_sram.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\board\ports\drv_sram.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
