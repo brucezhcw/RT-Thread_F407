@@ -293,7 +293,7 @@ static rt_size_t stm32_dma_transmit(struct rt_serial_device *serial, rt_uint8_t 
     if (RT_SERIAL_DMA_TX == direction)
     {
         if (HAL_UART_Transmit_DMA(&uart->handle, buf, size) == HAL_OK)
-        {
+        { 
             return size;
         }
         else

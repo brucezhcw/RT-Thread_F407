@@ -47,7 +47,7 @@ rt_hw_interrupt_disable    PROC
 ; */
 rt_hw_interrupt_enable    PROC
     EXPORT  rt_hw_interrupt_enable
-    MSR     PRIMASK, r0
+    MSR     PRIMASK, r0 
     BX      LR
     ENDP
 
@@ -233,7 +233,7 @@ HardFault_Handler    PROC
     ENDIF
     STMFD   r0!, {lr}               ; push exec_return register
 
-    TST     lr, #0x04               ; if(!EXC_RETURN[2])
+    TST     lr, #0x04                ; if(!EXC_RETURN[2])
     ITE     EQ
     MSREQ   msp, r0                 ; [2]=0 ==> Z=1, update stack pointer to MSP.
     MSRNE   psp, r0                 ; [2]=1 ==> Z=0, update stack pointer to PSP.
