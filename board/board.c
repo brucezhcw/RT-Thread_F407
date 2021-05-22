@@ -57,3 +57,13 @@ void SystemClock_Config(void)
     Error_Handler();
   }
 }
+#ifdef FINSH_USING_MSH
+static int sys_clock(void)
+{
+	rt_kprintf("system core clock frequency: %u\r\n", SystemCoreClock);
+	
+	return RT_EOK;
+}
+MSH_CMD_EXPORT(sys_clock, system core clock frequency);
+#endif
+
