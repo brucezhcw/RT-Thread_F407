@@ -41,7 +41,7 @@ int main(void)
 	rt_pin_mode(LED1_PIN, PIN_MODE_OUTPUT);
 	
 	set_date(2021, 5, 1);
-	set_time(12, 10, 0);
+	set_time(0, 0, 0);
  
 	rt_thread_t tid;
     tid = rt_thread_create("uart3test", uart3test, RT_NULL,
