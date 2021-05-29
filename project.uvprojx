@@ -339,7 +339,7 @@
               <MiscControls></MiscControls>
               <Define>USE_HAL_DRIVER, STM32F407xx, __RTTHREAD__, __CLK_TCK=RT_TICK_PER_SECOND</Define>
               <Undefine></Undefine>
-              <IncludePath>applications;.;rt-thread\libcpu\arm\common;rt-thread\libcpu\arm\cortex-m4;rt-thread\components\drivers\include;rt-thread\components\drivers\include;rt-thread\components\drivers\include;rt-thread\components\drivers\include;rt-thread\components\drivers\include;board;board\CubeMX_Config\Inc;board\ports;libraries\HAL_Drivers;libraries\HAL_Drivers\config;libraries\HAL_Drivers\drv_flash;rt-thread\components\finsh;.;rt-thread\include;rt-thread\components\libc\compilers\common;libraries\STM32F4xx_HAL\STM32F4xx_HAL_Driver\Inc;libraries\STM32F4xx_HAL\CMSIS\Device\ST\STM32F4xx\Include;libraries\STM32F4xx_HAL\CMSIS\Include</IncludePath>
+              <IncludePath>applications;.;rt-thread\libcpu\arm\common;rt-thread\libcpu\arm\cortex-m4;rt-thread\components\drivers\include;rt-thread\components\drivers\include;rt-thread\components\drivers\include;rt-thread\components\drivers\include;rt-thread\components\drivers\include;board;board\CubeMX_Config\Inc;board\ports;libraries\HAL_Drivers;libraries\HAL_Drivers\config;libraries\HAL_Drivers\drv_flash;rt-thread\components\finsh;.;rt-thread\include;rt-thread\components\libc\compilers\common;libraries\STM32F4xx_HAL\STM32F4xx_HAL_Driver\Inc;libraries\STM32F4xx_HAL\CMSIS\Device\ST\STM32F4xx\Include;libraries\STM32F4xx_HAL\CMSIS\Include;packages\MultiButton-v1.1.0;.\BeepPlayer\code\include</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -388,21 +388,11 @@
               <FileType>1</FileType>
               <FilePath>applications\main.c</FilePath>
             </File>
-            <File>
-              <FileName>rtconfig.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\rtconfig.h</FilePath>
-            </File>
           </Files>
         </Group>
         <Group>
           <GroupName>CPU</GroupName>
           <Files>
-            <File>
-              <FileName>backtrace.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>rt-thread\libcpu\arm\common\backtrace.c</FilePath>
-            </File>
             <File>
               <FileName>showmem.c</FileName>
               <FileType>1</FileType>
@@ -412,6 +402,11 @@
               <FileName>div0.c</FileName>
               <FileType>1</FileType>
               <FilePath>rt-thread\libcpu\arm\common\div0.c</FilePath>
+            </File>
+            <File>
+              <FileName>backtrace.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>rt-thread\libcpu\arm\common\backtrace.c</FilePath>
             </File>
             <File>
               <FileName>context_rvds.S</FileName>
@@ -449,16 +444,6 @@
               <FilePath>rt-thread\components\drivers\serial\serial.c</FilePath>
             </File>
             <File>
-              <FileName>completion.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>rt-thread\components\drivers\src\completion.c</FilePath>
-            </File>
-            <File>
-              <FileName>dataqueue.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>rt-thread\components\drivers\src\dataqueue.c</FilePath>
-            </File>
-            <File>
               <FileName>waitqueue.c</FileName>
               <FileType>1</FileType>
               <FilePath>rt-thread\components\drivers\src\waitqueue.c</FilePath>
@@ -469,9 +454,9 @@
               <FilePath>rt-thread\components\drivers\src\ringblk_buf.c</FilePath>
             </File>
             <File>
-              <FileName>ringbuffer.c</FileName>
+              <FileName>dataqueue.c</FileName>
               <FileType>1</FileType>
-              <FilePath>rt-thread\components\drivers\src\ringbuffer.c</FilePath>
+              <FilePath>rt-thread\components\drivers\src\dataqueue.c</FilePath>
             </File>
             <File>
               <FileName>pipe.c</FileName>
@@ -479,9 +464,19 @@
               <FilePath>rt-thread\components\drivers\src\pipe.c</FilePath>
             </File>
             <File>
+              <FileName>ringbuffer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>rt-thread\components\drivers\src\ringbuffer.c</FilePath>
+            </File>
+            <File>
               <FileName>workqueue.c</FileName>
               <FileType>1</FileType>
               <FilePath>rt-thread\components\drivers\src\workqueue.c</FilePath>
+            </File>
+            <File>
+              <FileName>completion.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>rt-thread\components\drivers\src\completion.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -538,6 +533,16 @@
               <FileType>1</FileType>
               <FilePath>libraries\HAL_Drivers\drv_hwtimer.c</FilePath>
             </File>
+            <File>
+              <FileName>rt_drv_pwm.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\rt-thread\components\drivers\misc\rt_drv_pwm.c</FilePath>
+            </File>
+            <File>
+              <FileName>drv_pwm.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\libraries\HAL_Drivers\drv_pwm.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -564,39 +569,14 @@
           <GroupName>Kernel</GroupName>
           <Files>
             <File>
-              <FileName>idle.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>rt-thread\src\idle.c</FilePath>
-            </File>
-            <File>
-              <FileName>memheap.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>rt-thread\src\memheap.c</FilePath>
-            </File>
-            <File>
-              <FileName>timer.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>rt-thread\src\timer.c</FilePath>
-            </File>
-            <File>
-              <FileName>thread.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>rt-thread\src\thread.c</FilePath>
-            </File>
-            <File>
               <FileName>components.c</FileName>
               <FileType>1</FileType>
               <FilePath>rt-thread\src\components.c</FilePath>
             </File>
             <File>
-              <FileName>kservice.c</FileName>
+              <FileName>ipc.c</FileName>
               <FileType>1</FileType>
-              <FilePath>rt-thread\src\kservice.c</FilePath>
-            </File>
-            <File>
-              <FileName>object.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>rt-thread\src\object.c</FilePath>
+              <FilePath>rt-thread\src\ipc.c</FilePath>
             </File>
             <File>
               <FileName>scheduler.c</FileName>
@@ -604,14 +584,9 @@
               <FilePath>rt-thread\src\scheduler.c</FilePath>
             </File>
             <File>
-              <FileName>clock.c</FileName>
+              <FileName>idle.c</FileName>
               <FileType>1</FileType>
-              <FilePath>rt-thread\src\clock.c</FilePath>
-            </File>
-            <File>
-              <FileName>device.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>rt-thread\src\device.c</FilePath>
+              <FilePath>rt-thread\src\idle.c</FilePath>
             </File>
             <File>
               <FileName>irq.c</FileName>
@@ -619,9 +594,39 @@
               <FilePath>rt-thread\src\irq.c</FilePath>
             </File>
             <File>
-              <FileName>ipc.c</FileName>
+              <FileName>object.c</FileName>
               <FileType>1</FileType>
-              <FilePath>rt-thread\src\ipc.c</FilePath>
+              <FilePath>rt-thread\src\object.c</FilePath>
+            </File>
+            <File>
+              <FileName>device.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>rt-thread\src\device.c</FilePath>
+            </File>
+            <File>
+              <FileName>timer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>rt-thread\src\timer.c</FilePath>
+            </File>
+            <File>
+              <FileName>clock.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>rt-thread\src\clock.c</FilePath>
+            </File>
+            <File>
+              <FileName>thread.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>rt-thread\src\thread.c</FilePath>
+            </File>
+            <File>
+              <FileName>memheap.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>rt-thread\src\memheap.c</FilePath>
+            </File>
+            <File>
+              <FileName>kservice.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>rt-thread\src\kservice.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -777,6 +782,46 @@
               <FileName>stm32f4xx_ll_fmc.c</FileName>
               <FileType>1</FileType>
               <FilePath>libraries\STM32F4xx_HAL\STM32F4xx_HAL_Driver\Src\stm32f4xx_ll_fmc.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>MultiButton</GroupName>
+          <Files>
+            <File>
+              <FileName>multi_button.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>packages\MultiButton-v1.1.0\multi_button.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>BeepPlayer</GroupName>
+          <Files>
+            <File>
+              <FileName>beep.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\BeepPlayer\code\src\beep.c</FilePath>
+            </File>
+            <File>
+              <FileName>decode.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\BeepPlayer\code\src\decode.c</FilePath>
+            </File>
+            <File>
+              <FileName>key.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\BeepPlayer\code\src\key.c</FilePath>
+            </File>
+            <File>
+              <FileName>led.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\BeepPlayer\code\src\led.c</FilePath>
+            </File>
+            <File>
+              <FileName>player.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\BeepPlayer\code\src\player.c</FilePath>
             </File>
           </Files>
         </Group>
