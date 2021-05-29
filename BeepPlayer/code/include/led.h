@@ -11,7 +11,10 @@
 #ifndef LED_H
 #define LED_H
 
-#define LED_PIN     21
+#include <board.h>
+
+#define LED0_PIN    GET_PIN(F, 9)
+#define LED1_PIN    GET_PIN(F, 10)
 
 int led_init(void);                     //LED 灯初始化
 int led_on(void);                       //LED 灯亮

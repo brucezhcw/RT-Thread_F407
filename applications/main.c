@@ -25,11 +25,7 @@ struct audio_ops audio;
 struct decode_ops decode;
 
 int main(void)
-{
-    /* set LED0 pin mode to output */
-    //rt_pin_mode(LED0_PIN, PIN_MODE_OUTPUT);
-	//rt_pin_mode(LED1_PIN, PIN_MODE_OUTPUT);
-	
+{	
 	set_date(2021, 5, 1);
 	set_time(0, 0, 0);
 	
