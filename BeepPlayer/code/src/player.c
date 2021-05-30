@@ -197,7 +197,7 @@ int player_show(player_t player)
     uint8_t i;
     uint16_t percent;
 
-    rt_kprintf("*********** Beep Player ***********\n");
+    rt_kprintf("\n\n********************** Beep Player **********************\n");
 
     /* 打印歌单 */
     for (i = 0; i < player->song_num; i++)
@@ -205,27 +205,24 @@ int player_show(player_t player)
         player->decode->control(player->song_sheet[i], DECODE_OPS_CMD_GET_NAME, name);
         rt_kprintf("%02d. %s\n", i + 1, name);
     }
-
+	rt_kprintf("*********************************************************\n");
     /* 打印当前播放状态 */
     if (PLAYER_RUNNING == player->status)
     {
-        rt_kprintf("<---  正在播放：");
+        rt_kprintf("Playing: ");
     }
     else
     {
-        rt_kprintf("<---  暂停播放：");
+        rt_kprintf("Pause play: ");
     }
 
     /* 打印当前歌曲 */
     player->decode->control(player->song_sheet[player->song_current - 1], DECODE_OPS_CMD_GET_NAME, name);
-    rt_kprintf("%s", name);
-    rt_kprintf("--->\n");
+    rt_kprintf("%s\n", name);
 
     /* 打印播放进度 */
     percent = player->song_time_pass * 100 / player->song_time_all;
-    rt_kprintf("播放进度：%02d%%  音量大小：%02d%%\n", percent, player->volume);
-
-    rt_kprintf("***********************************\n");
+    rt_kprintf("song_time_pass: %02d%%  Volume size: %02d%%\n\n", percent, player->volume);
 
     return 0;
 }
@@ -307,7 +304,7 @@ int player_start(player_t player)
     /* 创建动态线程 */
     player->play_thread = rt_thread_create("player",
                                            player_entry, player,
-                                           512, 20, 20);
+                                           512, 3, 20);
     if (player->play_thread != RT_NULL)
     {
         rt_thread_startup(player->play_thread);

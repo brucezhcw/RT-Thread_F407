@@ -15,8 +15,8 @@
 
 #define SEMIBREVE_LEN 1600
 /****    播放效果     ****/
-#define SOUND_SIGNATURE       3    //调号：升3个半音
-#define SOUND_OCTACHORD       0    //升降八度：升0个八度
+#define SOUND_SIGNATURE       0    //调号：升3个半音
+#define SOUND_OCTACHORD       1    //升降八度：升0个八度
 #define SOUND_SPACE           4/5  //定义普通音符演奏的长度分率,//每4分音符间隔
 
 #define SONG_NAME_LENGTH_MAX  30
