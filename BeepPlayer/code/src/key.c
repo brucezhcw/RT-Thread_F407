@@ -134,7 +134,7 @@ int key_init(void)
 
     /* play key init */
     rt_pin_mode(KEY_PLAY_PIN, PIN_MODE_INPUT_PULLDOWN);/*此处按键是对3.3V的，pin mode设置为PIN_MODE_INPUT_PULLDOWN（下拉输入）*/
-    button_init(&btn_play, btn_play_read, PIN_LOW);
+    button_init(&btn_play, btn_play_read, PIN_HIGH);
     button_attach(&btn_play, SINGLE_CLICK,     btn_play_cb);
     button_start(&btn_play);
     
