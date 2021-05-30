@@ -24,9 +24,6 @@ struct player player;
 struct audio_ops audio;
 struct decode_ops decode;
 
-uint16_t freq_tab[12]  = {262, 277, 294, 311, 330, 349, 369, 392, 415, 440, 466, 494}; //?'???? CDEFGAB
-uint8_t beep_volume = 20;
-
 int main(void)
 {	
 	set_date(2021, 5, 1);
@@ -35,17 +32,29 @@ int main(void)
     led_init();
     led_on();
 	
-    beep_init();
+	struct beep_song_data data;
+    int len, i;
+    char name[20];
 
-    for (int i = 0; i < 12; i++)
+	rt_thread_mdelay(10);
+	
+    beep_init();
+    beep_song_decode_init();
+    beep_song_get_name(&song1, name);
+    rt_kprintf("Playing: %s\n",name);
+    len = beep_song_get_len(&song1);
+    while (i < len)
     {
-        beep_set(freq_tab[i], beep_volume);
+        /* 解码音乐数据 */
+        beep_song_get_data(&song1, i, &data);
+        beep_set(data.freq, 20);
         beep_on();
 
-        rt_thread_mdelay(500);
+        rt_thread_mdelay(data.sound_len);
 
         beep_off();
-        rt_thread_mdelay(500);
+        rt_thread_mdelay(data.nosound_len);
+        i++;
     }
 	
     while (1)
