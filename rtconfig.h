@@ -27,6 +27,7 @@
 #define RT_USING_SEMAPHORE
 #define RT_USING_MUTEX
 #define RT_USING_EVENT
+#define RT_USING_MAILBOX
 
 /* Memory Management */
 
@@ -84,6 +85,7 @@
 #define RT_SERIAL_RB_BUFSZ 512
 #define RT_USING_HWTIMER
 #define RT_USING_PIN
+#define RT_USING_ADC
 #define RT_USING_PWM
 #define RT_USING_RTC
 
@@ -199,6 +201,8 @@
 #define BSP_USING_PWM1
 #define BSP_USING_PWM1_CH1
 #define BSP_USING_ON_CHIP_FLASH
+#define BSP_USING_ADC
+#define BSP_USING_ADC1
 #define BSP_USING_ONCHIP_RTC
 #define BSP_RTC_USING_LSE
 #define BSP_USING_EXT_FMC_IO
