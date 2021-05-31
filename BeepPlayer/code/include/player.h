@@ -13,7 +13,7 @@
 
 #include <rtthread.h>
 
-#define PLAYER_SOUND_SIZE_DEFAULT    70    // 1-99
+#define PLAYER_SOUND_SIZE_DEFAULT    40    // 1-99
 #define PLAYER_SONG_NUM_MAX          10
 #define PLAYER_SONG_NAME_LEN_MAX     20
 #define PLAYER_BUFFER_SIZE           20

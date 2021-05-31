@@ -26,6 +26,7 @@
 
 #define RT_USING_SEMAPHORE
 #define RT_USING_MUTEX
+#define RT_USING_EVENT
 
 /* Memory Management */
 

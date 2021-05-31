@@ -388,6 +388,11 @@
               <FileType>1</FileType>
               <FilePath>applications\main.c</FilePath>
             </File>
+            <File>
+              <FileName>rtconfig.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\rtconfig.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

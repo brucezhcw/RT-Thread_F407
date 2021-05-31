@@ -53,6 +53,7 @@ static void btn_last_cb(void *btn)
         {
             volume--;
             player_control(&player, PLAYER_CMD_SET_VOL, &volume);
+			rt_kprintf("Volume size: %02d%%\n\n", player.volume);
         }
         break;
     }
@@ -79,6 +80,7 @@ static void btn_next_cb(void *btn)
         {
             volume++;
             player_control(&player, PLAYER_CMD_SET_VOL, &volume);
+			rt_kprintf("Volume size: %02d%%\n\n", player.volume);
         }
         break;
     }
