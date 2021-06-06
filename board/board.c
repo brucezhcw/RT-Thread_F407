@@ -84,41 +84,69 @@ MSH_CMD_EXPORT(sys_clock, system core clock frequency);
 
 
 
-#define ADC_DEV_NAME        "adc1"      /* ADC ???? */
-#define ADC_DEV_CHANNEL     5           /* ADC ?? */
-#define REFER_VOLTAGE       330         /* ???? 3.3V,??????100??2???*/
-#define CONVERT_BITS        (1 << 12)   /* ?????12? */
+#define HWTIMER_DEV_NAME   "timer2"     /* ????? */
 
-static int adc_vol_sample(int argc, char *argv[])
+/* ????????? */
+static rt_err_t timeout_cb(rt_device_t dev, rt_size_t size)
 {
-    rt_adc_device_t adc_dev;
-    rt_uint32_t value, vol;
-    rt_err_t ret = RT_EOK;
+    rt_kprintf("tick is :%d !\n", rt_tick_get());
 
-    /* ???? */
-    adc_dev = (rt_adc_device_t)rt_device_find(ADC_DEV_NAME);
-    if (adc_dev == RT_NULL)
+    return 0;
+}
+
+static int hwtimer_sample(int argc, char *argv[])
+{
+    rt_err_t ret = RT_EOK;
+    rt_hwtimerval_t timeout_s;      /* ?????? */
+    rt_device_t hw_dev = RT_NULL;   /* ??????? */
+    rt_hwtimer_mode_t mode;         /* ????? */
+
+    /* ??????? */
+    hw_dev = rt_device_find(HWTIMER_DEV_NAME);
+    if (hw_dev == RT_NULL)
     {
-        rt_kprintf("adc sample run failed! can't find %s device!\n", ADC_DEV_NAME);
+        rt_kprintf("hwtimer sample run failed! can't find %s device!\n", HWTIMER_DEV_NAME);
         return RT_ERROR;
     }
 
-    /* ???? */
-    ret = rt_adc_enable(adc_dev, ADC_DEV_CHANNEL);
-
-    /* ????? */
-    value = rt_adc_read(adc_dev, ADC_DEV_CHANNEL);
-    rt_kprintf("the value is :%d \n", value);
+    /* ????????? */
+    ret = rt_device_open(hw_dev, RT_DEVICE_OFLAG_RDWR);
+    if (ret != RT_EOK)
+    {
+        //rt_kprintf("open %s device failed!\n", HWTIMER_DEV_NAME);
+        //return ret;
+    }
 
     /* ???????? */
-    vol = value * REFER_VOLTAGE / CONVERT_BITS;
-    rt_kprintf("the voltage is :%d.%02d \n", vol / 100, vol % 100);
+    rt_device_set_rx_indicate(hw_dev, timeout_cb);
 
-    /* ???? */
-    ret = rt_adc_disable(adc_dev, ADC_DEV_CHANNEL);
+    /* ??????????? */
+    mode = HWTIMER_MODE_PERIOD;
+    ret = rt_device_control(hw_dev, HWTIMER_CTRL_MODE_SET, &mode);
+    if (ret != RT_EOK)
+    {
+        rt_kprintf("set mode failed! ret is :%d\n", ret);
+        return ret;
+    }
+
+    /* ?????????5s?????? */
+    timeout_s.sec = 5;      /* ? */
+    timeout_s.usec = 0;     /* ?? */
+
+    if (rt_device_write(hw_dev, 0, &timeout_s, sizeof(timeout_s)) != sizeof(timeout_s))
+    {
+        rt_kprintf("set timeout value failed\n");
+        return RT_ERROR;
+    }
+	
+    /* ??3500ms */
+    rt_thread_mdelay(3500);
+
+    /* ???????? */
+    rt_device_read(hw_dev, 0, &timeout_s, sizeof(timeout_s));
+    rt_kprintf("Read: Sec = %d, Usec = %d\n", timeout_s.sec, timeout_s.usec);
 
     return ret;
 }
 /* ??? msh ????? */
-MSH_CMD_EXPORT(adc_vol_sample, adc voltage convert sample);
-
+MSH_CMD_EXPORT(hwtimer_sample, hwtimer sample);

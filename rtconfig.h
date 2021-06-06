@@ -83,6 +83,7 @@
 #define RT_USING_SERIAL
 #define RT_SERIAL_USING_DMA
 #define RT_SERIAL_RB_BUFSZ 512
+#define RT_USING_CAN
 #define RT_USING_HWTIMER
 #define RT_USING_PIN
 #define RT_USING_ADC
@@ -196,6 +197,7 @@
 #define BSP_UART3_RX_USING_DMA
 #define BSP_UART3_TX_USING_DMA
 #define BSP_USING_TIM
+#define BSP_USING_TIM2
 #define BSP_USING_TIM13
 #define BSP_USING_PWM
 #define BSP_USING_PWM1
@@ -207,6 +209,8 @@
 #define BSP_RTC_USING_LSE
 #define BSP_USING_EXT_FMC_IO
 #define BSP_USING_FMC
+#define BSP_USING_CAN
+#define BSP_USING_CAN1
 
 /* Board extended module Drivers */
 
