@@ -84,69 +84,58 @@ MSH_CMD_EXPORT(sys_clock, system core clock frequency);
 
 
 
-#define HWTIMER_DEV_NAME   "timer2"     /* ????? */
+#define W25Q_SPI_DEVICE_NAME     "spi10"
 
-/* ????????? */
-static rt_err_t timeout_cb(rt_device_t dev, rt_size_t size)
+static void spi_w25q_sample(int argc, char *argv[])
 {
-    rt_kprintf("tick is :%d !\n", rt_tick_get());
+    struct rt_spi_device *spi_dev_w25q;
+    char name[RT_NAME_MAX];
+    rt_uint8_t w25x_read_id = 0x90;
+    rt_uint8_t id[5] = {0};
 
-    return 0;
-}
-
-static int hwtimer_sample(int argc, char *argv[])
-{
-    rt_err_t ret = RT_EOK;
-    rt_hwtimerval_t timeout_s;      /* ?????? */
-    rt_device_t hw_dev = RT_NULL;   /* ??????? */
-    rt_hwtimer_mode_t mode;         /* ????? */
-
-    /* ??????? */
-    hw_dev = rt_device_find(HWTIMER_DEV_NAME);
-    if (hw_dev == RT_NULL)
+    if (argc == 2)
     {
-        rt_kprintf("hwtimer sample run failed! can't find %s device!\n", HWTIMER_DEV_NAME);
-        return RT_ERROR;
+        rt_strncpy(name, argv[1], RT_NAME_MAX);
+    }
+    else
+    {
+        rt_strncpy(name, W25Q_SPI_DEVICE_NAME, RT_NAME_MAX);
     }
 
-    /* ????????? */
-    ret = rt_device_open(hw_dev, RT_DEVICE_OFLAG_RDWR);
-    if (ret != RT_EOK)
+    /* ?? spi ???????? */
+    spi_dev_w25q = (struct rt_spi_device *)rt_device_find(name);
+    if (!spi_dev_w25q)
     {
-        //rt_kprintf("open %s device failed!\n", HWTIMER_DEV_NAME);
-        //return ret;
+        rt_kprintf("spi sample run failed! can't find %s device!\n", name);
     }
-
-    /* ???????? */
-    rt_device_set_rx_indicate(hw_dev, timeout_cb);
-
-    /* ??????????? */
-    mode = HWTIMER_MODE_PERIOD;
-    ret = rt_device_control(hw_dev, HWTIMER_CTRL_MODE_SET, &mode);
-    if (ret != RT_EOK)
+    else
     {
-        rt_kprintf("set mode failed! ret is :%d\n", ret);
-        return ret;
+        /* ??1:?? rt_spi_send_then_recv()??????ID */
+        rt_spi_send_then_recv(spi_dev_w25q, &w25x_read_id, 1, id, 5);
+        rt_kprintf("use rt_spi_send_then_recv() read w25q ID is:%x%x\n", id[3], id[4]);
+
+        /* ??2:?? rt_spi_transfer_message()??????ID */
+        struct rt_spi_message msg1, msg2;
+
+        msg1.send_buf   = &w25x_read_id;
+        msg1.recv_buf   = RT_NULL;
+        msg1.length     = 1;
+        msg1.cs_take    = 1;
+        msg1.cs_release = 0;
+        msg1.next       = &msg2;
+
+        msg2.send_buf   = RT_NULL;
+        msg2.recv_buf   = id;
+        msg2.length     = 5;
+        msg2.cs_take    = 0;
+        msg2.cs_release = 1;
+        msg2.next       = RT_NULL;
+
+        rt_spi_transfer_message(spi_dev_w25q, &msg1);
+        rt_kprintf("use rt_spi_transfer_message() read w25q ID is:%x%x\n", id[3], id[4]);
+
     }
-
-    /* ?????????5s?????? */
-    timeout_s.sec = 5;      /* ? */
-    timeout_s.usec = 0;     /* ?? */
-
-    if (rt_device_write(hw_dev, 0, &timeout_s, sizeof(timeout_s)) != sizeof(timeout_s))
-    {
-        rt_kprintf("set timeout value failed\n");
-        return RT_ERROR;
-    }
-	
-    /* ??3500ms */
-    rt_thread_mdelay(3500);
-
-    /* ???????? */
-    rt_device_read(hw_dev, 0, &timeout_s, sizeof(timeout_s));
-    rt_kprintf("Read: Sec = %d, Usec = %d\n", timeout_s.sec, timeout_s.usec);
-
-    return ret;
 }
 /* ??? msh ????? */
-MSH_CMD_EXPORT(hwtimer_sample, hwtimer sample);
+MSH_CMD_EXPORT(spi_w25q_sample, spi w25q sample);
+

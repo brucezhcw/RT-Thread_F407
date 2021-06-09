@@ -89,6 +89,11 @@
 #define RT_USING_ADC
 #define RT_USING_PWM
 #define RT_USING_RTC
+#define RT_USING_SPI
+#define RT_USING_SFUD
+#define RT_SFUD_USING_SFDP
+#define RT_SFUD_USING_FLASH_INFO_TABLE
+#define RT_SFUD_SPI_MAX_HZ 50000000
 
 /* Using USB */
 
@@ -182,6 +187,7 @@
 /* Onboard Peripheral Drivers */
 
 #define BSP_USING_SRAM
+#define BSP_USING_SPI_FLASH
 
 /* On-chip Peripheral Drivers */
 
@@ -203,6 +209,8 @@
 #define BSP_USING_PWM1
 #define BSP_USING_PWM1_CH1
 #define BSP_USING_ON_CHIP_FLASH
+#define BSP_USING_SPI
+#define BSP_USING_SPI1
 #define BSP_USING_ADC
 #define BSP_USING_ADC1
 #define BSP_USING_ONCHIP_RTC
