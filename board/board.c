@@ -80,62 +80,37 @@ MSH_CMD_EXPORT(sys_clock, system core clock frequency);
 
 
 
+#include <rtthread.h>
+#include <dfs_posix.h> /* ??????????,????????? */
 
-
-
-
-#define W25Q_SPI_DEVICE_NAME     "spi10"
-
-static void spi_w25q_sample(int argc, char *argv[])
+static int dfs_mount_init(void)
 {
-    struct rt_spi_device *spi_dev_w25q;
-    char name[RT_NAME_MAX];
-    rt_uint8_t w25x_read_id = 0x90;
-    rt_uint8_t id[5] = {0};
+	if(dfs_mount("W25Q128", "/", "elm", 0, 0)==0)
+		rt_kprintf("spi flash mount to /\r\n");
+	else
+		rt_kprintf("spi flash mount to / failed\r\n");
+	
+	return RT_EOK;
+}
+INIT_ENV_EXPORT(dfs_mount_init);
 
-    if (argc == 2)
+static void mkdir_sample(void)
+{
+    int ret;
+
+    /* ????*/
+    ret = mkdir("/dir_test", 0x777);
+    if (ret < 0)
     {
-        rt_strncpy(name, argv[1], RT_NAME_MAX);
+        /* ??????*/
+        rt_kprintf("dir error!\n");
     }
     else
     {
-        rt_strncpy(name, W25Q_SPI_DEVICE_NAME, RT_NAME_MAX);
-    }
-
-    /* ?? spi ???????? */
-    spi_dev_w25q = (struct rt_spi_device *)rt_device_find(name);
-    if (!spi_dev_w25q)
-    {
-        rt_kprintf("spi sample run failed! can't find %s device!\n", name);
-    }
-    else
-    {
-        /* ??1:?? rt_spi_send_then_recv()??????ID */
-        rt_spi_send_then_recv(spi_dev_w25q, &w25x_read_id, 1, id, 5);
-        rt_kprintf("use rt_spi_send_then_recv() read w25q ID is:%x%x\n", id[3], id[4]);
-
-        /* ??2:?? rt_spi_transfer_message()??????ID */
-        struct rt_spi_message msg1, msg2;
-
-        msg1.send_buf   = &w25x_read_id;
-        msg1.recv_buf   = RT_NULL;
-        msg1.length     = 1;
-        msg1.cs_take    = 1;
-        msg1.cs_release = 0;
-        msg1.next       = &msg2;
-
-        msg2.send_buf   = RT_NULL;
-        msg2.recv_buf   = id;
-        msg2.length     = 5;
-        msg2.cs_take    = 0;
-        msg2.cs_release = 1;
-        msg2.next       = RT_NULL;
-
-        rt_spi_transfer_message(spi_dev_w25q, &msg1);
-        rt_kprintf("use rt_spi_transfer_message() read w25q ID is:%x%x\n", id[3], id[4]);
-
+        /* ??????*/
+        rt_kprintf("mkdir ok!\n");
     }
 }
 /* ??? msh ????? */
-MSH_CMD_EXPORT(spi_w25q_sample, spi w25q sample);
+MSH_CMD_EXPORT(mkdir_sample, mkdir sample);
 
